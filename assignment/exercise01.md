@@ -23,6 +23,9 @@ Experiment using exercise_light.py to find approximate max_bright and min_bright
 * min_bright: make the LED duty cycle about 0% when in very dim light (dark room, covered with hand)
 
 1. what are the "max_bright" and "min_bright" values you found?
+    "max_bright" = 1360
+    "min_bright" = 43482
+
 
 ## Notes
 

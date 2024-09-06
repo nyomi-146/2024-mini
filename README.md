@@ -1,5 +1,8 @@
 # 2024 Fall Miniproject
 
+note from kyla
+
+
 [ASSIGNMENT](./assignment/)
 
 This project uses the Raspberry Pi Pico WH (wireless, with header pins).

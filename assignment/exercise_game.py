@@ -8,6 +8,11 @@ import random
 import json
 import pyrebase
 
+config = {
+  "databaseURL": "https://kyla-nyomi-mini2024-default-rtdb.firebaseio.com/"
+}
+
+firebase = pyrebase.initialize_app(config)
 
 N: int = 10
 sample_ms = 10.0
@@ -126,3 +131,6 @@ if __name__ == "__main__":
     blinker(5, led)
 
     scorer(t)
+
+    data = {"name": "Mortimer 'Morty' Smith"}
+db.child("users").push(data)

@@ -6,13 +6,12 @@ from machine import Pin
 import time
 import random
 import json
-import numpy as np
+import pyrebase
 
 
-N: int = 3
+N: int = 10
 sample_ms = 10.0
 on_ms = 500
-
 
 def random_time_interval(tmin: float, tmax: float) -> float:
     """return a random time interval between max and min"""
@@ -51,6 +50,8 @@ def scorer(t: list[int | None]) -> None:
     misses = t.count(None)
     print(f"You missed the light {misses} / {len(t)} times")
 
+    print(t)
+    
     t_good = [x for x in t if x is not None]
 
     print(t_good)
@@ -59,10 +60,10 @@ def scorer(t: list[int | None]) -> None:
     # and score (non-misses / total flashes) i.e. the score a floating point number
     # is in range [0..1]
     data = {
-        "minimum": np.min(t_good),
-        "maximum": np.max(t_good),
-        "average": np.mean(t_good),
-        "score": count(t_good)/count(t)
+        "minimum": min(t_good),
+        "maximum": max(t_good),
+        "average": sum(t_good)/len(t_good),
+        "score": len(t_good)/len(t)
     }
 
     # %% make dynamic filename and write JSON
@@ -104,6 +105,7 @@ if __name__ == "__main__":
 
         #turn LED on
         led.high()
+        print("LED on")
         
         #set the reference tic
         tic = time.ticks_ms()

@@ -6,6 +6,7 @@ from machine import Pin
 import time
 import random
 import json
+import numpy as np
 
 
 N: int = 3
@@ -57,9 +58,16 @@ def scorer(t: list[int | None]) -> None:
     # add key, value to this dict to store the minimum, maximum, average response time
     # and score (non-misses / total flashes) i.e. the score a floating point number
     # is in range [0..1]
-    data = {}
+    data = {
+        "minimum": np.min(t_good),
+        "maximum": np.max(t_good),
+        "average": np.mean(t_good),
+        "score": count(t_good)/count(t)
+    }
 
     # %% make dynamic filename and write JSON
+    
+    print(data)
 
     now: tuple[int] = time.localtime()
 
@@ -74,29 +82,45 @@ def scorer(t: list[int | None]) -> None:
 if __name__ == "__main__":
     # using "if __name__" allows us to reuse functions in other script files
 
+    #define LED
     led = Pin("LED", Pin.OUT)
-    button = Pin(16, Pin.IN, Pin.PULL_UP)
+    
+    #define button pin, change to 15
+    button = Pin(15, Pin.IN, Pin.PULL_UP)
 
+
+    #initialize a list t that can contain integers or None values
     t: list[int | None] = []
 
+    #indicate game has started
     blinker(3, led)
 
+
+    
     for i in range(N):
+        
+        #sleep for a random time interval
         time.sleep(random_time_interval(0.5, 5.0))
 
+        #turn LED on
         led.high()
-
+        
+        #set the reference tic
         tic = time.ticks_ms()
         t0 = None
         while time.ticks_diff(time.ticks_ms(), tic) < on_ms:
+            #if button is pressed, get response time and turn LED off
             if button.value() == 0:
                 t0 = time.ticks_diff(time.ticks_ms(), tic)
                 led.low()
                 break
+        #add the response time to the list, if LED was not pressed, add NONE
         t.append(t0)
-
+        
+        #set LED low
         led.low()
 
+    #indicate game has ended
     blinker(5, led)
 
     scorer(t)

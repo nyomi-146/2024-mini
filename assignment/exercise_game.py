@@ -16,7 +16,7 @@ import network
 import urequests
 
 #replace URL with the one to database you made
-url = "https://ec463-2024-mini-default-rtdb.firebaseio.com/"
+url = "https://kyla-nyomi-mini2024-default-rtdb.firebaseio.com/"
 
 N: int = 3
 sample_ms = 10.0

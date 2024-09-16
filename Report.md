@@ -6,3 +6,7 @@ Kyla Wilson, Nyomi Inda
 "min_bright" = 43482
 
 ## Excercise 2
+We chose to play the kim possible intro for our song!
+
+## Excercise 3
+Computed min, max, avg, and uploaded to cloud (database hosted by firebase)

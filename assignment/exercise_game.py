@@ -11,7 +11,7 @@ import urequests
 
 url = "https://kyla-nyomi-mini2024-default-rtdb.firebaseio.com/"
 
-N: int = 3
+N: int = 10
 sample_ms = 10.0
 on_ms = 500
 
